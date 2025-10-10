@@ -48,7 +48,7 @@ export const Categorias = () => {
 
   return (
     <div className="container">
-      <h3 className="text-center py-4">{param.name}</h3>
+      <h3 className="text-center py-4">{param.name} ({datos.length})</h3>
       <div className="row">
 
         {datos.map((e, index) => (

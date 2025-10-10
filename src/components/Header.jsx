@@ -26,6 +26,9 @@ export const Header = () => {
           <Link to={'/tablets'} className="nav-link" href="#">Tablet</Link>
         </li>
         <li className="nav-item">
+          <Link to={'/tienda'} className="nav-link" href="#">Tienda</Link>
+        </li>
+        <li className="nav-item">
           <a className="nav-link" href="#">Pricing</a>
         </li>
         
@@ -34,7 +37,7 @@ export const Header = () => {
         </li>
                <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
+            Categorias
           </a>
           <ul class="dropdown-menu">
             <FiltroCategoria />
