@@ -1,24 +1,31 @@
+import { Link } from "react-router-dom"
 
-import { Link } from "react-router-dom";
-const Cardprod = ({item}) => {
+
+const Cardprod = ({ item }) => {
     return (
-        <div className="col-md-4 col-xl-3 mb-3" key={item.id}>
+        <div  className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
             <div className="card h-100">
-                <div className="card-header p-0">
-                    <img src={item.thumbnail} alt="" className="img-fluid" />
-                </div>
+                <div className="card-header"><img className="img-fluid" src={item.thumbnail} alt="" /></div>
                 <div className="card-body text-center">
-                    <p className="fs-3">{item.title}</p>
-                    <p className="fs-5 text-danger fw-bold">Precio: {item.price}$</p>
+                    <p className="fs-5">
+                        {item.title}<br />
+                        <span className="small">{item.brand}</span>
+                    </p>
+                    <p className="badge text-bg-info">
+                        Precio: {item.price}
+                    </p>
                 </div>
                 <div className="card-footer text-center">
-                    <a href="#" className="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target={`#${item.id}`}>Modal</a>
-                    <Link to={`/detalle/${item.id}/${item.title}`} href="#" className="btn btn-info btn-sm" >Detalle</Link>
+                    <a href="#" className="btn btn-outline-info btn-sm me-2" data-bs-toggle="modal" data-bs-target={`#${item.id}`}>Modal</a>
+                    
+                    <Link to={`/detalle/${item.id}/${item.title}`} href="#" className="btn btn-outline-danger btn-sm">
+                        Detalle
+                    </Link>
                 </div>
             </div>
-
+            {/* Modal */}
             <div className="modal fade" id={item.id} tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-xl" >
+                <div className="modal-dialog modal-lg">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h1 className="modal-title fs-5" id="exampleModalLabel">{item.title}</h1>
@@ -26,27 +33,33 @@ const Cardprod = ({item}) => {
                         </div>
                         <div className="modal-body">
                             <div className="row">
-                                <div className="col-md-4">
-                                    <img src={item.thumbnail} alt="" className="img-fluid" />
+                                <div className="col-md-4 mt-1 mb-1">
+                                    <img className="img-fluid" src={item.thumbnail} alt={item.title} />
                                 </div>
                                 <div className="col-md-8">
-                                    <p className="fs-3">{item.title}</p>
-                                    <p className="fs-3">Categoria: {item.category}</p>
-                                    <p className="fs-3">Marca: {item.brand}</p>
-                                    <p className="fs-3">Existencia: {item.stock}</p>
-                                    <p className="fs-6">{item.description}</p>
-                                    <p className="fs-5 text-danger fw-bold">Precio: {item.price}$</p>
+                                    <h3>{item.title}</h3>
+                                    <p>
+                                        Marca:{item.brand} <br />
+                                        <b>Categoria:</b> {item.category} <br />
+                                        Sku: {item.sku} <br />
+                                        <b>Stock:</b> {item.stock} <br />
+                                    </p>
+                                    <p>
+                                        {item.description}
+                                    </p>
+                                    <h4>
+                                        Precio: {item.price}
+                                    </h4>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
 
                         </div>
                     </div>
                 </div>
             </div>
-
 
         </div>
     )

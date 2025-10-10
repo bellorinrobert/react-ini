@@ -1,16 +1,21 @@
+import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import Cardprod from "../components/Cardprod"
 
-const API = 'https://dummyjson.com/products/category/smartphones'
+const API = 'https://dummyjson.com/products/category/'
 
-export const Movil = () => {
+export const Categorias = () => {
+  
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
+  const param = useParams()
+  
   const getDatos = async () => {
     try {
-      const response = await fetch(API)
+      const URI = API + param.cate
+      
+      const response = await fetch(URI)
       if (!response.ok) {
         throw new Error("Http erro! status:" + response.status)
       }
@@ -25,7 +30,7 @@ export const Movil = () => {
 
   useEffect(() => {
     getDatos()
-  }, [])
+  }, [param])
 
   if (loading) {
     return (
@@ -39,9 +44,11 @@ export const Movil = () => {
     )
   }
 
+
+
   return (
     <div className="container">
-      <h3 className="text-center py-4">Movil</h3>
+      <h3 className="text-center py-4">{param.name}</h3>
       <div className="row">
 
         {datos.map((e, index) => (

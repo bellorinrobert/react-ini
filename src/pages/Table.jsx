@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import Cardprod from "../components/Cardprod"
 
-const API = 'https://dummyjson.com/products/category/smartphones'
+const API = 'https://dummyjson.com/products/category/tablets'
 
-export const Movil = () => {
+export const Table = () => {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -42,7 +42,7 @@ export const Movil = () => {
   return (
     <div className="container">
       <h3 className="text-center py-4">Movil</h3>
-      <div className="row">
+      <div className="row justify-content-center">
 
         {datos.map((e, index) => (
           

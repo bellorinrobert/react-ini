@@ -7,6 +7,9 @@ import { Header } from "./components/Header"
 import { Home } from "./pages/Home"
 import { Laptop } from "./pages/Laptop"
 import { Movil } from "./pages/Movil"
+import { Detalle } from "./pages/Detalle"
+import { Table } from "./pages/Table"
+import {Categorias} from "./pages/Categorias"
 
 const App = () => {
   //Zona de la logica
@@ -22,6 +25,9 @@ const App = () => {
         <Route path="/inicio" element={<Home />} />
         <Route path="/movil" element={<Movil />} />
         <Route path="/laptop" element={<Laptop />} />
+        <Route path="/tablets" element={<Table />} />
+        <Route path="/detalle/:id/:name" element={<Detalle />} />
+        <Route path="/categorias/:cate/:name" element={<Categorias />} />
         
         <Route path="*" element={<Home/>} />
         

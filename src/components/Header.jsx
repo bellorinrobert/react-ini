@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import FiltroCategoria from "./FiltroCategoria"
 
 
 export const Header = () => {
@@ -19,13 +20,26 @@ export const Header = () => {
           <Link to={'/movil'} className="nav-link" href="#">Movil</Link>
         </li>
         <li className="nav-item">
-          <Link to={'/lapto'} className="nav-link" href="#">Lapto</Link>
+          <Link to={'/laptop'} className="nav-link" href="#">Lapto</Link>
+        </li>
+        <li className="nav-item">
+          <Link to={'/tablets'} className="nav-link" href="#">Tablet</Link>
         </li>
         <li className="nav-item">
           <a className="nav-link" href="#">Pricing</a>
         </li>
+        
         <li className="nav-item">
           <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+        </li>
+               <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <FiltroCategoria />
+            
+          </ul>
         </li>
       </ul>
     </div>
