@@ -391,6 +391,7 @@ const Tablas = () => {
                                 <th colSpan={5} className="text-center" scope="col">Total ...</th>
                                 <th scope="col">{formatNumber(totalStockf)}</th>
                                 <th scope="col" className="text-end">{formatCurrency(totalInventoryValuef)}</th>
+                                <th colSpan={2} className="text-end"></th>
                             </tr>
 
                         )}
@@ -401,6 +402,7 @@ const Tablas = () => {
                                 <th colSpan={5} className="text-center" scope="col">Total ...</th>
                                 <th scope="col">{formatNumber(totalStock)}</th>
                                 <th scope="col" className="text-end">{formatCurrency(totalInventoryValue)}</th>
+                                <th colSpan={2} className="text-end"></th>
                             </tr>
 
                         )}
