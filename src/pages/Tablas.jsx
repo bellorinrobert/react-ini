@@ -51,6 +51,40 @@ const Tablas = () => {
         setCurrentPage(1);
     }, [searchTerm]);
 
+    const categorySummary = useMemo(() => {
+        const summary = {};
+        datos.forEach(item => {
+            if (!summary[item.category]) {
+                summary[item.category] = {
+                    category: item.category,
+                    productCount: 0,
+                    totalStock: 0,
+                    totalValue: 0,
+                    percent: 0
+                };
+            }
+            summary[item.category].productCount += 1;
+            summary[item.category].totalStock += Number(item.stock);
+            summary[item.category].totalValue += Number(item.price) * Number(item.stock);
+        });
+        const totalValue = Object.values(summary).reduce((acc, cat) => acc + cat.totalValue, 0);
+
+        Object.values(summary).forEach(cat => {
+            cat.percent = (cat.totalValue / totalValue) * 100;
+        });
+
+        return Object.values(summary).sort((a, b) => a.category.localeCompare(b.category));
+    }, [datos]); // 👈 ¡Depende de `datos`, no de `filteredData`!
+
+             const globalTotals = useMemo(() => {
+                return datos.reduce((acc, item) => {
+                    acc.productCount += 1;
+                    acc.totalStock += Number(item.stock);
+                    acc.totalValue += Number(item.price) * Number(item.stock);
+                    return acc;
+                }, { productCount: 0, totalStock: 0, totalValue: 0 });
+            }, [datos]);
+
     //Formateo
     const formatCurrency = (value) => {
         const numericValue = Number(value);
@@ -95,17 +129,17 @@ const Tablas = () => {
     );
 
     const filteredData = useMemo(() => {
-            return datos.filter(item => {
-                const matchesSearch = 
+        return datos.filter(item => {
+            const matchesSearch =
                 (item.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
                 (item.brand?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
                 (item.category?.toLowerCase() || '').includes(searchTerm.toLowerCase());
 
-                const matchesCategory = selectedCategory === '' || selectedCategory === 'Todas' || item.category === selectedCategory;
+            const matchesCategory = selectedCategory === '' || selectedCategory === 'Todas' || item.category === selectedCategory;
 
-                return matchesSearch && matchesCategory;
-            });
-        }, [datos, searchTerm, selectedCategory]);
+            return matchesSearch && matchesCategory;
+        });
+    }, [datos, searchTerm, selectedCategory]);
 
     /**
      *  Se usa useMemo para optimizar, evitando reordenar en cada render.
@@ -206,6 +240,59 @@ const Tablas = () => {
                     Total inventario: {formatCurrency(totalInventoryValue)}
                 </p>
             </div>
+                        <div className="text-end my-3">
+                <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Total por Categorias
+                </button>
+            </div>
+             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Total por Categorias</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                        </div>
+                        <div className="modal-body">
+
+                            <table className="table table-sm table-bordered">
+                                <thead className="table-light">
+                                    <tr>
+                                        <th>Categoría</th>
+                                        <th className="text-center">Productos</th>
+                                        <th className="text-center">Stock Total</th>
+                                        <th className="text-end">Valor del Inventario</th>
+                                        <th className="text-end">%</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categorySummary.map((cat, index) => (
+                                        <tr key={index}>
+                                            <td><strong>{cat.category}</strong></td>
+                                            <td className="text-center">{cat.productCount}</td>
+                                            <td className="text-center">{formatNumber(cat.totalStock)}</td>
+                                            <td className="text-end">{formatCurrency(cat.totalValue)}</td>
+                                            <td className="text-end">{cat.percent.toFixed(2)}%</td> 
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot className="table-light fw-bold">
+                                    <tr>
+                                        <td>Total General</td>
+                                        <td className="text-center">{globalTotals.productCount}</td>
+                                        <td className="text-center">{formatNumber(globalTotals.totalStock)}</td>
+                                        <td className="text-end">{formatCurrency(globalTotals.totalValue)}</td>
+                                        <td></td> 
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="row justify-content-end">
 
                 <div className="col-md-6">
@@ -276,17 +363,17 @@ const Tablas = () => {
                     </div>
                 </div>
                 <div className="col-md-3 my-1">
-                     <select
-                className="form-select"
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-            >
-                {categories.map((cat, index) => (
-                <option key={index} value={cat === 'Todas' ? '' : cat}>
-                    {cat}
-                </option>
-                ))}
-            </select>
+                    <select
+                        className="form-select"
+                        value={selectedCategory}
+                        onChange={(e) => setSelectedCategory(e.target.value)}
+                    >
+                        {categories.map((cat, index) => (
+                            <option key={index} value={cat === 'Todas' ? '' : cat}>
+                                {cat}
+                            </option>
+                        ))}
+                    </select>
 
                 </div>
                 <div className="col-md-3 my-1">
@@ -468,9 +555,12 @@ const Tablas = () => {
                                     }}
                                     className="form-select w-auto d-inline-block ms-2"
                                 >
+                                    <option value={5}>5</option>
                                     <option value={10}>10</option>
                                     <option value={20}>20</option>
                                     <option value={30}>30</option>
+                                    <option value={50}>50</option>
+                                    <option value={75}>75</option>
                                     <option value={100}>100</option>
                                 </select>
                             </li>
