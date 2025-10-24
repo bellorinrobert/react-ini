@@ -8,11 +8,20 @@ const Cardprod = ({ item, carrito, agregarAlCarrito }) => {
         // alert("Agregar")
         agregarAlCarrito(item)
     }
+     const enCarrito = carrito.find(producto => producto.id === item.id);
 
     return (
         <div  className="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 mb-4">
             <div className="card h-100">
-                <div className="card-header"><img className="img-fluid" src={item.thumbnail} alt="" /></div>
+                <div className="card-header">
+                     {/* 🔹 Badge de cantidad si está en carrito */}
+                    {enCarrito && (
+                        <span className="position-absolute top-0 end-0 badge rounded-pill text-bg-warning fs-4 m-2">
+                            {enCarrito.cantidad}
+                        </span>
+                    )}
+                    <img className="img-fluid" src={item.thumbnail} alt="" />
+                    </div>
                 <div className="card-body text-center">
                     <p className="fs-5">
                         {item.title}<br />

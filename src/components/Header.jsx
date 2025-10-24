@@ -37,6 +37,7 @@ export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarC
   };
 
 
+
   return (
     <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
