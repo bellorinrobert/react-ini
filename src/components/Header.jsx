@@ -1,9 +1,18 @@
+import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import FiltroCategoria from "./FiltroCategoria"
-import { useState } from "react"
 
+import { FaTable } from "react-icons/fa";
 
-export const Header = () => {
+import { FaShoppingCart } from "react-icons/fa";
+import CarritoOfCambas from "./CarritoOfCambas";
+
+export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarCarrito, enviarPedido}) => {
+
+   
+
+ 
+
 
   const [txtBuscar, setTxtBuscar] = useState()
   const manejoTxt = (e) => {
@@ -15,6 +24,12 @@ export const Header = () => {
 
   const manejoEnvio = (event) => {
     event.preventDefault();
+
+    if(!txtBuscar.trim()){
+      alert("Por favor indica un termino de busqueda")
+      return
+    }
+
     navigate('/busquedas', {
       state: txtBuscar,
     });
@@ -23,6 +38,7 @@ export const Header = () => {
 
 
   return (
+    <>
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand" href="#">Navbar</a>
@@ -74,15 +90,50 @@ export const Header = () => {
               className="form-control me-2"
               type="search"
               placeholder="Search" aria-label="Search"
-            />
+              />
             <button className="btn btn-outline-success" type="submit">Buscar</button>
           </form>
+          {/* <button className="btn btn-info">Carrito</button> */}
           {/* <button onClick={toggleTheme} className="btn btn-dark btn-sm ">
             {darkMode ? <FaSun /> : <FaMoon />}
-          </button> */}
+            </button> */}
+
+            { carrito.length > 0 &&(
+              <button
+                  className="btn btn-outline-warning me-2"
+                  type="button" data-bs-toggle="offcanvas"
+                  data-bs-target="#offcanvasRight"
+                  aria-controls="offcanvasRight">
+                  <div className="d-flex justify-content-between align-items-center gap-2">
+                      <FaShoppingCart />  
+                       <span className="badge bg-danger m-1">{carrito.length}</span>
+                  </div>
+                  
+              </button>
+      
+            )
+            
+            }
         </div>
+        
       </div>
     </nav>
+    
+<div>
+
+
+<CarritoOfCambas
+  carrito={carrito} 
+  actualizarCantidad={actualizarCantidad} 
+  eliminarDelCarrito={eliminarDelCarrito} 
+  vaciarCarrito={vaciarCarrito} 
+  enviarPedido={enviarPedido}
+/>
+
+
+</div>
+
+            </>
 
 
   )

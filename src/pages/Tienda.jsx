@@ -5,7 +5,7 @@ import Cardprod from "../components/Cardprod"
 const API='https://dummyjson.com/products?limit=12&skip=';
 
 
-export const Tienda = () => {
+export const Tienda = ({ carrito, agregarAlCarrito}) => {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -92,7 +92,10 @@ export const Tienda = () => {
 
         {datos.map((e, index) => (
           
-          <Cardprod key={index} item={e} />  
+          <Cardprod key={index} item={e} 
+          carrito={carrito} 
+          agregarAlCarrito={agregarAlCarrito}
+           />  
 
         ))}
 

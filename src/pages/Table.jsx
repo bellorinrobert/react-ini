@@ -3,7 +3,7 @@ import Cardprod from "../components/Cardprod"
 
 const API = 'https://dummyjson.com/products/category/tablets'
 
-export const Table = () => {
+export const Table = ({ carrito, agregarAlCarrito}) => {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -46,7 +46,7 @@ export const Table = () => {
 
         {datos.map((e, index) => (
           
-          <Cardprod key={index} item={e} />  
+          <Cardprod key={index} item={e} carrito={carrito} agregarAlCarrito={agregarAlCarrito} />  
 
         ))}
 

@@ -3,7 +3,7 @@ import Cardprod from "../components/Cardprod"
 
 const API = 'https://dummyjson.com/products/category/smartphones'
 
-export const Movil = () => {
+export const Movil = ({ carrito, agregarAlCarrito}) => {
   const [datos, setDatos] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -46,7 +46,8 @@ export const Movil = () => {
 
         {datos.map((e, index) => (
           
-          <Cardprod key={index} item={e} />  
+          <Cardprod key={index} item={e}
+          carrito={carrito} agregarAlCarrito={agregarAlCarrito} />  
 
         ))}
 

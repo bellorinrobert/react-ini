@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Cardprod from "../components/Cardprod";
 import { useLocation } from "react-router-dom";
 
@@ -11,10 +11,22 @@ const Busqueda = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const location = useLocation();
-    const txtBuscar = location.state;
-    const URI = API + txtBuscar;
+    const txtBuscar = location.state?.trim() || '';
+    // const URI = API + txtBuscar;
+    const URI = txtBuscar ? API + encodeURIComponent(txtBuscar) : null;
 
-    const getDatos = async () => {
+     const getDatos = useCallback(async () => {
+        // Si no hay URI válida, no hacemos nada
+        if (!URI) {
+            setError("No se proporcionó un término de búsqueda.");
+            setLoading(false);
+            return;
+        }
+
+        setLoading(true);
+        setError(null);
+        setDatos([]); // Limpiamos resultados anteriores para mejor UX
+
         try {
             const response = await fetch(URI);
             if (!response.ok) {
@@ -22,17 +34,28 @@ const Busqueda = () => {
             }
             const data = await response.json();
             setDatos(data.products);
-            setLoading(false);
         } catch (err) {
             setError(err.message);
+        } finally {
+            // Aseguramos que loading siempre se desactive, incluso si hay error
             setLoading(false);
         }
-    };
-
+    }, [URI]); // 🔹 Dependencia: URI (que incluye txtBuscar codificado)
+    
+    useEffect(() => {
+        if (txtBuscar) {
+            getDatos();
+        } else {
+            // Si no hay búsqueda, mostramos error inmediatamente
+            setError("No se proporcionó un término de búsqueda.");
+            setLoading(false);
+        }
+    }, [txtBuscar, getDatos]); // ✅ Ahora sin warnings
+/*
     useEffect(() => {
         getDatos();
     }, [txtBuscar]);
-
+*/
         if (loading) {
         return (
             <div className="text-center py-5">
