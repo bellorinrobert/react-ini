@@ -178,11 +178,13 @@ const PrimeTable = () => {
       <Card>
         <DataTable
           value={datos}
+          filters={filters}
           size={size}
           paginator
           rows={5}
           rowsPerPageOptions={[5, 10, 25, 50]}
           tableStyle={{ minWidth: "50rem" }}
+
         >
           <Column field="id" sortable header="Id"></Column>
           <Column header="Image" body={imageBodyTemplate}></Column>
