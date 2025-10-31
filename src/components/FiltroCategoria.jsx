@@ -43,7 +43,7 @@ const FiltroCategoria = () => {
         <div>
             {datos.map((e, i) => (
                 
-                <li key={i}><Link to={`/categorias/${e.slug}/${e.name}`} class="dropdown-item" href="#">{e.name}</Link></li>
+                <li key={i}><Link to={`/categorias/${e.slug}/${e.name}`} className="dropdown-item" href="#">{e.name}</Link></li>
 
             ))}
         </div>

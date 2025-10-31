@@ -7,7 +7,7 @@ import { FaTable } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import CarritoOfCambas from "./CarritoOfCambas";
 
-export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarCarrito, enviarPedido}) => {
+export const Header = () => {
 
    
 
@@ -74,11 +74,11 @@ export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarC
             <li className="nav-item">
               <a className="nav-link disabled" aria-disabled="true">Disabled</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <li className="nav-item dropdown">
+              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Categorias
               </a>
-              <ul class="dropdown-menu">
+              <ul className="dropdown-menu">
                 <FiltroCategoria />
 
               </ul>
@@ -99,22 +99,7 @@ export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarC
             {darkMode ? <FaSun /> : <FaMoon />}
             </button> */}
 
-            { carrito.length > 0 &&(
-              <button
-                  className="btn btn-outline-warning me-2"
-                  type="button" data-bs-toggle="offcanvas"
-                  data-bs-target="#offcanvasRight"
-                  aria-controls="offcanvasRight">
-                  <div className="d-flex justify-content-between align-items-center gap-2">
-                      <FaShoppingCart />  
-                       <span className="badge bg-danger m-1">{carrito.length}</span>
-                  </div>
-                  
-              </button>
-      
-            )
             
-            }
         </div>
         
       </div>
@@ -123,13 +108,6 @@ export const Header = ({carrito, actualizarCantidad, eliminarDelCarrito, vaciarC
 <div>
 
 
-<CarritoOfCambas
-  carrito={carrito} 
-  actualizarCantidad={actualizarCantidad} 
-  eliminarDelCarrito={eliminarDelCarrito} 
-  vaciarCarrito={vaciarCarrito} 
-  enviarPedido={enviarPedido}
-/>
 
 
 </div>
