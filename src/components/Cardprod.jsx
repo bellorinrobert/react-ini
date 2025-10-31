@@ -18,6 +18,7 @@ const Cardprod = ({ item, carrito, agregarAlCarrito }) => {
                     {enCarrito && (
                         <span className="position-absolute top-0 end-0 badge rounded-pill text-bg-warning fs-4 m-2">
                             {enCarrito.cantidad}
+                            
                         </span>
                     )}
                     <img className="img-fluid" src={item.thumbnail} alt="" />
