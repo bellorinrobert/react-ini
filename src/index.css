@@ -8,3 +8,31 @@
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
+
+/* solo para el  datatable */
+.p-datatable-thead > tr > th { /* color del fondo y texto */
+  background-color: #2980b9 !important;
+  color: white !important;
+    
+}
+.p-datatable-thead > tr > th .p-column-header-content { /* centra el encabezado */
+  text-align: center !important;
+  display: block !important;
+}
+.p-datatable-thead > tr > th, 
+.p-datatable-tbody > tr > td {/* bordes */
+  border-bottom: 0.1px solid #7f8c8d !important;
+
+}
+
+/* 🌙 Estilos Específicos para el Modo OSCURO */
+body[data-bs-theme="dark"] .p-datatable-tbody > tr.p-highlight,
+body[data-bs-theme="dark"] .p-datatable-tbody > tr:hover {
+  background-color: #89949f !important;
+}
+
+/* ☀️ Estilos Específicos para el Modo CLARO */
+body[data-bs-theme="light"] .p-datatable-tbody > tr.p-highlight,
+body[data-bs-theme="light"] .p-datatable-tbody > tr:hover {
+  background-color: #c2c2c2 !important; /* Gris intermedio para resaltar */
+}

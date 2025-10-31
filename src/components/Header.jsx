@@ -118,14 +118,6 @@ export const Header = () => {
         )}
       </nav>
 
-
-
-      <div>
-
-
-
-
-      </div>
         <CarritoModal />
     </>
 

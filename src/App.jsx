@@ -14,6 +14,7 @@ import { Tienda } from "./pages/Tienda"
 import Busqueda from "./pages/Busqueda"
 import Tablas from "./pages/Tablas"
 import { CarritoProvider } from "./context/CarritoContext"
+import PrimeTable from "./pages/PrimeTable"
 
 
 
@@ -38,7 +39,8 @@ const App = () => {
             <Route path="/tablets" element={<Table  />} />
             <Route path="/tienda" element={<Tienda  />} />
             <Route path="/busquedas" element={<Busqueda  />} />
-            <Route path="/tabla" element={<Tablas />} />
+            {/* <Route path="/tabla" element={<Tablas />} /> */}
+            <Route path="/tabla" element={<PrimeTable />} />
             <Route path="/detalle/:id/:name" element={<Detalle />} />
             <Route path="/categorias/:cate/:name" element={<Categorias  />} />
 
