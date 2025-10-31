@@ -21,7 +21,11 @@ export const Footer = () => {
             <li className="ms-3">
               <a className="text-body-secondary" href="#" aria-label="Facebook">
                 <svg className="bi" width={24} height={24}>
-                </svg></a></li> </ul> </footer>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </footer>
 
 
   )

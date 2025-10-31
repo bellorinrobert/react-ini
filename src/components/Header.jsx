@@ -6,12 +6,14 @@ import { FaTable } from "react-icons/fa";
 
 import { FaShoppingCart } from "react-icons/fa";
 import CarritoOfCambas from "./CarritoOfCambas";
+import { useCarrito } from "../context/CarritoContext";
+import CarritoModal from "./CarritoModal";
 
 export const Header = () => {
 
-   
+  const { carrito } = useCarrito()
 
- 
+
 
 
   const [txtBuscar, setTxtBuscar] = useState()
@@ -25,7 +27,7 @@ export const Header = () => {
   const manejoEnvio = (event) => {
     event.preventDefault();
 
-    if(!txtBuscar.trim()){
+    if (!txtBuscar.trim()) {
       alert("Por favor indica un termino de busqueda")
       return
     }
@@ -40,79 +42,92 @@ export const Header = () => {
 
   return (
     <>
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">Navbar</a>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon" />
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mx-auto">
-            <li className="nav-item">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand" href="#">Navbar</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon" />
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav mx-auto">
+              <li className="nav-item">
 
-              <Link to={'/home'} className="nav-link active" aria-current="page" href="#">Home</Link>
-            </li>
-            <li className="nav-item">
-              <Link to={'/movil'} className="nav-link" href="#">Movil</Link>
-            </li>
-            <li className="nav-item">
-              <Link to={'/laptop'} className="nav-link" href="#">Lapto</Link>
-            </li>
-            <li className="nav-item">
-              <Link to={'/tablets'} className="nav-link" href="#">Tablet</Link>
-            </li>
-            <li className="nav-item">
-              <Link to={'/tienda'} className="nav-link" href="#">Tienda</Link>
-            </li>
-            <li className="nav-item">
-              <Link to={'/tabla'} className="nav-link" href="#">Tabla</Link>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Pricing</a>
-            </li>
+                <Link to={'/home'} className="nav-link active" aria-current="page" href="#">Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={'/movil'} className="nav-link" href="#">Movil</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={'/laptop'} className="nav-link" href="#">Lapto</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={'/tablets'} className="nav-link" href="#">Tablet</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={'/tienda'} className="nav-link" href="#">Tienda</Link>
+              </li>
+              <li className="nav-item">
+                <Link to={'/tabla'} className="nav-link" href="#">Tabla</Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">Pricing</a>
+              </li>
 
-            <li className="nav-item">
-              <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Categorias
-              </a>
-              <ul className="dropdown-menu">
-                <FiltroCategoria />
+              <li className="nav-item">
+                <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+              <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorias
+                </a>
+                <ul className="dropdown-menu">
+                  <FiltroCategoria />
 
-              </ul>
-            </li>
-          </ul>
-          <form className="d-flex" role="search" onSubmit={manejoEnvio}>
-            <input
-              value={txtBuscar}
-              onChange={manejoTxt}
-              className="form-control me-2"
-              type="search"
-              placeholder="Search" aria-label="Search"
+                </ul>
+              </li>
+            </ul>
+            <form className="d-flex" role="search" onSubmit={manejoEnvio}>
+              <input
+                value={txtBuscar}
+                onChange={manejoTxt}
+                className="form-control me-2"
+                type="search"
+                placeholder="Search" aria-label="Search"
               />
-            <button className="btn btn-outline-success" type="submit">Buscar</button>
-          </form>
-          {/* <button className="btn btn-info">Carrito</button> */}
-          {/* <button onClick={toggleTheme} className="btn btn-dark btn-sm ">
+              <button className="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+            {/* <button className="btn btn-info">Carrito</button> */}
+            {/* <button onClick={toggleTheme} className="btn btn-dark btn-sm ">
             {darkMode ? <FaSun /> : <FaMoon />}
             </button> */}
 
-            
+
+          </div>
+
         </div>
-        
+        {carrito.length > 0 && (
+          <button
+            type="button"
+            className="btn btn-outline-warning me-2"
+            data-bs-toggle="modal"
+            data-bs-target="#carritoModal">
+            <div className="d-flex justify-content-between align-items-center gap-2">
+              <FaTable /><span className="badge bg-danger m-1">{carrito.length}</span>
+            </div>
+          </button>
+        )}
+      </nav>
+
+
+
+      <div>
+
+
+
+
       </div>
-    </nav>
-    
-<div>
-
-
-
-
-</div>
-
-            </>
+        <CarritoModal />
+    </>
 
 
   )

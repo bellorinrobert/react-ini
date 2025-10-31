@@ -13,6 +13,7 @@ import { Categorias } from "./pages/Categorias"
 import { Tienda } from "./pages/Tienda"
 import Busqueda from "./pages/Busqueda"
 import Tablas from "./pages/Tablas"
+import { CarritoProvider } from "./context/CarritoContext"
 
 
 
@@ -24,6 +25,8 @@ const App = () => {
 
   return (
     <>
+    <CarritoProvider> 
+
       <BrowserRouter>
         <div className="app">
           <Header />
@@ -48,6 +51,7 @@ const App = () => {
         </div>
 
       </BrowserRouter>
+    </CarritoProvider>
     </>
   )
 }
