@@ -5,7 +5,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Rating } from "primereact/rating";
 import { SelectButton } from "primereact/selectbutton";
-import { formatCurrency } from "../util/funciones";
+import { formatCurrency, formatNumber } from "../util/funciones";
 import { FilterMatchMode } from "primereact/api";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from 'primereact/inputtext';
@@ -83,6 +83,18 @@ const PrimeTable = () => {
   useEffect(() => {
     getDatos();
   }, []);
+      // ✅ NUEVO: CÁLCULO DE MÉTRICAS DE INVENTARIO USANDO REDUCE
+const totales = useMemo(() => {
+    return datos.reduce((acc, product) => ({
+        // Usamos la sintaxis de objeto conciso ({...})
+        totalStock: acc.totalStock + product.stock,
+        totalInventoryValue: acc.totalInventoryValue + (product.price * product.stock),
+    }), {
+        // Inicialización del acumulador (acc)
+        totalStock: 0,
+        totalInventoryValue: 0,
+    });
+}, [datos]);
 
   if (loading) {
     return <div>Cargando</div>;
@@ -138,6 +150,45 @@ const PrimeTable = () => {
 
   return (
     <div className="container">
+          {/* Estadísticas Rápidas */}
+            <div className="row my-4">
+                <div className="col-md-3 mb-3">
+                    <div className="card border-0 bg-primary text-white">
+                        <div className="card-body text-center">
+                            <i className="pi pi-box fs-1 "></i>
+                            <h4 className="mt-2">{datos.length}</h4>
+                            <p className="mb-0">Total Productos</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-3">
+                    <div className="card border-0 bg-success text-white">
+                        <div className="card-body text-center">
+                            <i className="pi pi-chart-line fs-1 "></i>
+                            <h4 className="mt-2">{formatCurrency(totales.totalInventoryValue)}</h4>
+                            <p className="mb-0">Valor Inventario</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-3">
+                    <div className="card border-0 bg-warning text-white">
+                        <div className="card-body text-center">
+                            <i className="pi pi-shopping-cart fs-1 "></i>
+                            <h4 className="mt-2">{formatNumber(totales.totalStock)}</h4>
+                            <p className="mb-0">Stock Total</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-3">
+                    <div className="card border-0 bg-info text-white">
+                        <div className="card-body text-center">
+                            <i className="pi pi-tags fs-1 "></i>
+                            <h4 className="mt-2">{categories.length}</h4>
+                            <p className="mb-0">Categorías</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
       <h4 className="text-center py-4">Lista de productos</h4>
       <div className="row ">
         <div className="col-md-4 ">
